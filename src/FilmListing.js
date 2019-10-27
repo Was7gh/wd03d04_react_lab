@@ -2,12 +2,12 @@ import React from 'react'
 import FilmRow from './FilmRow'
 
 const FilmListing = (props) => {
-    let allFilms = props.TMDB;
-    let row = allFilms.films.map(item => <FilmRow title={item.title} id={item.id}  date ={item.release_date} path={item.poster_path}/>)
+  var allFilms = props.TMDB.map((item)=>{
+       return  <FilmRow key = {item.id} listfilms={item} />
+  })
     return (
-        <div className="film-list">
-            <h1 className="section-title">FILMS</h1>
-            <div>{row}</div>
+        <div>
+            {allFilms}
         </div>
     )
 }
