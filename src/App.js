@@ -11,7 +11,7 @@ export default class App extends Component {
       <div className="film-library">
   <div className="film-list">
     <h1 className="section-title">FILMS</h1>
-    <FilmListing TMDB={TMDB.films}/> 
+    <FilmListing films={TMDB.films}/> 
   </div>
 
   <div className="film-details">

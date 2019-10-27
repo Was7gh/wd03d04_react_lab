@@ -1,17 +1,26 @@
-import React from 'react'
-import FilmPoster from './FilmPoster'
+import React from "react";
+import FilmPoster from "./FilmPoster";
+ import Fave from './Fave'
 
 export default function FilmRow(props) {
-    var film = props.listfilms.title;
-    var date = new Date(props.listfilms.release_date);
-    return (
-        <div className="film-row">
-        <FilmPoster path={props.listfilms.poster_path}/>
+  var film = props.listfilms.title;
+  var date = props.listfilms.release_date; 
 
-        <div className="film-summary">
-            <h1>{film}</h1>
-            <p>{date.getFullYear}</p>
-        </div>
-</div>
-    )
+     let handleDetailsClick =(filmsa)  =>{
+ 
+   console.log("Fetching details for "+ film)
+       
+   } 
+  return (
+    <div  onClick={() => handleDetailsClick('filmsa')} className="film-row">
+      <FilmPoster path={props.listfilms.poster_path} />
+
+      <div className="film-summary">
+        <h1>{film}</h1>
+        <p>{date}</p>
+       
+      </div>
+      <Fave/>
+    </div>
+  );
 }
