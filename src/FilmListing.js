@@ -2,57 +2,51 @@ import React, { Component } from 'react'
 import FilmRow from './FilmRow'
 
 export default class FilmListing extends Component {
-    // let handleFilterClick =(filter)  =>{
-    //     console.log("Setting filter to")
-    //    } 
-
-    constructor(props) {
+    
+    constructor (props){
         super(props)
-        this.state= {
-          filter: 'all'
-        }
-      }
-      handleFilterClick = (filter) => {
-        if (filter === 'Faves') {
-           console.log( "Setting filter to")
-              }
-             else{
-              console.log("Setting all to")
-             }
+        this.state= {filter:'all'}
+    }
+    
+    handleFilterClick = (fil)=>{
+        console.log("Setting filter to "+fil)
         this.setState({
-          filter: filter
+            filter:fil
         })
-      }
-    render(props) {
-        let allFilms = this.props.films.map((item , index)=>{
-            return  <FilmRow key = {item.id} listfilms={item} />
-       })
-    //    console.log(props.TMDB);
+    }
+
+    render() {
+        var allFilms = this.props.films.map(film => 
+         <FilmRow films ={film} 
+         key={film.id} 
+         onFaveToggle={() => this.props.onFaveToggle(film)}
+            isFave= {this.props.faves.includes(film) }
+        handleDetailsClick ={this.props.handleDetailsClick}
+        />)
+        
+        var faveFilms = this.props.faves.map(film=><FilmRow films ={film} 
+            key={film.id} 
+            onFaveToggle={() => this.props.onFaveToggle(film)}
+               isFave= {this.props.faves.includes(film) }
+           handleDetailsClick ={() => this.props.handleDetailsClick(film)}
+           />)
+        
         return (
-            <div   className="film-list" >
+            <div className="film-list"  >
             <h1 className="section-title">FILMS</h1>
             <div className="film-list-filters">
-                <div onClick={() => this.handleFilterClick('all')} className={`film-list-filter ${this.state.filter === 'all' ? 'is-active' : ''}`}>
+                <div className={`film-list-filter ${this.state.filter === 'all' ? 'is-active' : ''}`} onClick={() => this.handleFilterClick('all')}>
                     ALL
-                    <span className="section-count">{this.props.films.length} </span>
+                    <span className="section-count">{this.props.films.length}</span>
                 </div>
-                <div onClick={() => this.handleFilterClick('faves')}  className={`film-list-filter ${this.state.filter === 'faves' ? 'is-active' : ''}`}  >
+                <div className={`film-list-filter ${this.state.filter === 'faves' ? 'is-active' : ''}`}onClick={() => this.handleFilterClick('faves')} >
                     FAVES
-                    <span className="section-count">0</span>
+                    <span className="section-count">{this.props.faves.length}</span>
                 </div>
             </div>
-        
-            {allFilms}
+            {this.state.filter === 'all'? allFilms : faveFilms}
+           
         </div>
         )
     }
 }
-
-
-
-
-
-
-
-
-
